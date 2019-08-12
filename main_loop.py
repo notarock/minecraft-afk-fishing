@@ -1,7 +1,9 @@
-import PIL
-import pyscreenshot as ImageGrab
+from PIL import ImageGrab
 import win32gui
 import win32ui 
+import time
+import win32api, win32con
+
 
 class main_loop(object):
     game_window = None
@@ -9,11 +11,32 @@ class main_loop(object):
     def __init__(self, whnd):
         self.game_window = whnd
 
+    def click(self):
+        win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTDOWN,0,0,0,0)
+        win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP,0,0,0,0)
+
+    def pixel_compare(pixel1, pixel2):
+        pass
+
+    def get_screen(self):
+        rect = win32gui.GetWindowRect(self.game_window)
+        img = ImageGrab.grab(bbox=rect)
+        # img.show()
+        # exit(0)
+        return img
+
     def run(self):
         while(True):
-            # print(self.game_window.getPixel(20,20))
-            i_desktop_window_dc = win32gui.GetWindowDC(self.game_window)
-            long_colour = win32gui.GetPixel(i_desktop_window_dc, 30, 30)
-            print(long_colour)
-            exit(0)
-            
+            img = self.get_screen();
+            color = img.getpixel((660, 430))
+            print(color)
+            value = False
+            if 10 <= color[2] <= 45 and 10 <= color[1] <= 45 or 10 <= color[0] <= 45:
+                value = True
+            if value:
+                self.click()
+                time.sleep(1)
+                self.click()
+                time.sleep(3)
+            del img
+            time.sleep(1)
