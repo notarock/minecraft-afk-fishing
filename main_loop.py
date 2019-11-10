@@ -30,10 +30,7 @@ class main_loop(object):
             img = self.get_screen();
             color = img.getpixel((660, 430))
             print(color)
-            value = False
             if 10 <= color[2] <= 45 and 10 <= color[1] <= 45 or 10 <= color[0] <= 45:
-                value = True
-            if value:
                 self.click()
                 time.sleep(1)
                 self.click()
