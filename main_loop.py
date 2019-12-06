@@ -9,6 +9,7 @@ class main_loop(object):
     game_window = None
 
     def __init__(self, whnd):
+        self.is_running = True
         self.game_window = whnd
 
     def click(self):
@@ -26,7 +27,7 @@ class main_loop(object):
         return img
 
     def run(self):
-        while(True):
+        while(self.is_running):
             img = self.get_screen();
             color = img.getpixel((660, 430))
             print(color)
