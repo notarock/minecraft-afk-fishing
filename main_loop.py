@@ -22,8 +22,6 @@ class main_loop(object):
     def get_screen(self):
         rect = win32gui.GetWindowRect(self.game_window)
         img = ImageGrab.grab(bbox=rect)
-        # img.show()
-        # exit(0)
         return img
 
     def run(self):
